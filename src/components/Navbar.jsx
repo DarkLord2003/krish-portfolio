@@ -1,6 +1,14 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import "./Navbar.css";
 
+const ROLES = [
+  "Frontend Developer",
+  "UI / UX Engineer",
+  "React Developer",
+  "AI-powered Web Builder",
+  "Social Media Manager",
+];
+
 const Navbar = () => {
   const links = useMemo(
     () => [
@@ -18,6 +26,10 @@ const Navbar = () => {
   const [active, setActive] = useState("home");
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [displayText, setDisplayText] = useState("");
+  const [roleIndex, setRoleIndex] = useState(0);
+  const [charIndex, setCharIndex] = useState(0);
+  const [isDeleting, setIsDeleting] = useState(false);
 
   const navRef = useRef(null);
   const pillRef = useRef(null);
@@ -99,6 +111,31 @@ const Navbar = () => {
     return () => window.removeEventListener("keydown", onKeyDown);
   }, [isOpen]);
 
+  /* ===============================
+     TYPEWRITER LOGIC
+  ================================ */
+  useEffect(() => {
+    const currentRole = ROLES[roleIndex];
+    const typingSpeed = isDeleting ? 50 : 100;
+
+    const timeout = setTimeout(() => {
+      if (!isDeleting && charIndex < currentRole.length) {
+        setDisplayText(currentRole.slice(0, charIndex + 1));
+        setCharIndex((prev) => prev + 1);
+      } else if (isDeleting && charIndex > 0) {
+        setDisplayText(currentRole.slice(0, charIndex - 1));
+        setCharIndex((prev) => prev - 1);
+      } else if (!isDeleting && charIndex === currentRole.length) {
+        setTimeout(() => setIsDeleting(true), 1200);
+      } else if (isDeleting && charIndex === 0) {
+        setIsDeleting(false);
+        setRoleIndex((prev) => (prev + 1) % ROLES.length);
+      }
+    }, typingSpeed);
+
+    return () => clearTimeout(timeout);
+  }, [charIndex, isDeleting, roleIndex]);
+
   const handleNavClick = () => {
     setIsOpen(false);
   };
@@ -110,7 +147,10 @@ const Navbar = () => {
           <span className="logo-mark">KP</span>
           <span className="logo-copy">
             <strong>Krish Patel</strong>
-            <small>Frontend Engineer</small>
+            <small>
+              <span className="logo-typed-text">{displayText}</span>
+              <span className="logo-typed-cursor">|</span>
+            </small>
           </span>
         </a>
 

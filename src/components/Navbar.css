@@ -76,6 +76,26 @@
   letter-spacing: 0.5px;
   color: #b8b8b8;
   text-transform: uppercase;
+  min-height: 1em;
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+}
+
+.logo-typed-text {
+  color: var(--orange);
+  font-weight: 600;
+}
+
+.logo-typed-cursor {
+  animation: navBlink 1s infinite;
+  color: var(--orange);
+}
+
+@keyframes navBlink {
+  0% { opacity: 1; }
+  50% { opacity: 0; }
+  100% { opacity: 1; }
 }
 
 .nav-links {
