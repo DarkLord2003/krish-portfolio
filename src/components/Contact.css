@@ -1,0 +1,230 @@
+.contact-section {
+  padding: 120px 0 140px;
+  background: #0b0b0b;
+
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.9s ease, transform 0.9s ease;
+}
+
+.contact-section.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.contact-container {
+  max-width: 1200px;
+  margin: auto;
+  padding: 0 32px;
+
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 50px;
+  align-items: center;
+}
+
+.contact-text .eyebrow {
+  display: inline-flex;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-size: 12px;
+  color: var(--orange);
+  font-weight: 700;
+  margin-bottom: 14px;
+}
+
+.contact-text h2 {
+  font-size: 42px;
+  font-weight: 800;
+  line-height: 1.15;
+  margin-bottom: 18px;
+}
+
+.contact-text h2 span {
+  color: var(--orange);
+}
+
+.contact-text p {
+  color: #c8c8c8;
+  line-height: 1.85;
+  max-width: 520px;
+}
+
+.contact-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-top: 26px;
+}
+
+.contact-primary,
+.contact-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 14px 30px;
+  border-radius: 999px;
+  font-weight: 700;
+  text-decoration: none;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.contact-primary {
+  background: var(--orange);
+  color: #111;
+}
+
+.contact-primary:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 14px 32px rgba(255, 140, 50, 0.35);
+}
+
+.contact-secondary {
+  background: rgba(255, 255, 255, 0.08);
+  color: #f2f2f2;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.contact-secondary:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 14px 32px rgba(0, 0, 0, 0.4);
+}
+
+.contact-card {
+  background: linear-gradient(160deg, rgba(18, 18, 18, 0.98), rgba(8, 8, 8, 0.98));
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 24px;
+  padding: 32px;
+}
+
+.contact-card h3 {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.contact-card-subtext {
+  color: #bdbdbd;
+  margin-bottom: 22px;
+  line-height: 1.6;
+}
+
+.contact-form {
+  display: grid;
+  gap: 14px;
+  margin-bottom: 22px;
+}
+
+.field {
+  display: grid;
+  gap: 7px;
+  color: #d8d8d8;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.field input,
+.field textarea {
+  width: 100%;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(255, 255, 255, 0.03);
+  color: #f2f2f2;
+  padding: 12px 13px;
+  font: inherit;
+}
+
+.field textarea {
+  resize: vertical;
+  min-height: 120px;
+}
+
+.field input:focus-visible,
+.field textarea:focus-visible {
+  outline: 2px solid rgba(255, 140, 50, 0.65);
+  outline-offset: 1px;
+}
+
+.field input[aria-invalid="true"],
+.field textarea[aria-invalid="true"] {
+  border-color: rgba(255, 140, 50, 0.55);
+}
+
+.field small {
+  color: #ffbca0;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.contact-form button {
+  border: none;
+  border-radius: 999px;
+  padding: 12px 18px;
+  font-weight: 700;
+  color: #121212;
+  background: var(--orange);
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.contact-form button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 24px rgba(255, 140, 50, 0.32);
+}
+
+.contact-form button:disabled {
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+.form-status {
+  font-size: 12px;
+  line-height: 1.4;
+}
+
+.form-status.success {
+  color: #9ad9aa;
+}
+
+.form-status.error {
+  color: #ffbca0;
+}
+
+.contact-links {
+  display: grid;
+  gap: 16px;
+}
+
+.contact-links a {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 14px 16px;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  color: #f1f1f1;
+  text-decoration: none;
+  transition: border-color 0.25s ease, transform 0.25s ease;
+}
+
+.contact-links a span {
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #9e9e9e;
+}
+
+.contact-links a strong {
+  font-weight: 600;
+}
+
+.contact-links a:hover {
+  transform: translateY(-3px);
+  border-color: rgba(255, 140, 50, 0.4);
+}
+
+@media (max-width: 640px) {
+  .contact-text h2 {
+    font-size: 34px;
+  }
+}

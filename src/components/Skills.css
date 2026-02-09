@@ -1,0 +1,204 @@
+/* ===============================
+   SECTION BASE
+================================ */
+.skills-section {
+  padding: 120px 0;
+  background: var(--surface-0);
+
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.9s ease, transform 0.9s ease;
+}
+
+.skills-section.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ===============================
+   CONTAINER
+================================ */
+.skills-container {
+  max-width: 1100px;
+  margin: auto;
+  padding: 0 32px;
+}
+
+/* ===============================
+   HEADER
+================================ */
+.skills-header {
+  text-align: center;
+  margin-bottom: 80px;
+}
+
+.skills-header h2 {
+  font-size: 46px;
+  font-weight: 800;
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.skills-header h2 span {
+  color: var(--orange);
+}
+
+.skills-header p {
+  max-width: 620px;
+  margin: 16px auto 0;
+  color: #b5b5b5;
+  line-height: 1.8;
+
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+/* Animate header */
+.skills-section.visible .skills-header h2 {
+  animation: fadeUp 0.8s ease forwards;
+}
+
+.skills-section.visible .skills-header p {
+  animation: fadeUp 0.8s ease forwards;
+  animation-delay: 0.15s;
+}
+
+/* ===============================
+   SKILL GROUPS
+================================ */
+.skills-groups {
+  display: flex;
+  flex-direction: column;
+  gap: 80px;
+}
+
+.skills-group h3 {
+  font-size: 26px;
+  margin-bottom: 32px;
+
+  border-left: 4px solid var(--orange);
+  padding-left: 14px;
+
+  opacity: 0;
+  transform: translateY(18px);
+}
+
+/* Animate group titles */
+.skills-section.visible .skills-group h3 {
+  animation: fadeUp 0.7s ease forwards;
+}
+
+/* ===============================
+   GRID
+================================ */
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 24px;
+  perspective: 1100px;
+}
+
+/* ===============================
+   SKILL CARD
+================================ */
+.skill-card {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  transform-style: preserve-3d;
+
+  background: rgba(20, 20, 20, 0.9);
+  padding: 20px 22px;
+  border-radius: 14px;
+
+  border: 1px solid rgba(255, 255, 255, 0.05);
+
+  opacity: 0;
+  transform: translateY(18px);
+
+  transition:
+    opacity 0.6s ease,
+    transform 0.6s ease,
+    border-color 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+/* Animate cards (stagger handled inline in JSX) */
+.skills-section.visible .skill-card {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.skill-card:hover {
+  transform: translateY(-8px) rotateX(8deg) rotateY(-7deg);
+  border-color: rgba(255, 140, 50, 0.5);
+  box-shadow:
+    0 14px 30px rgba(0, 0, 0, 0.6),
+    0 0 24px rgba(255, 140, 50, 0.25);
+}
+
+.skills-grid .skill-card:nth-child(even):hover {
+  transform: translateY(-8px) rotateX(8deg) rotateY(7deg);
+}
+
+/* ===============================
+   ICON
+================================ */
+.skill-card img {
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
+  flex-shrink: 0;
+  transform: translateZ(14px);
+}
+
+/* ===============================
+   TEXT
+================================ */
+.skill-info {
+  display: flex;
+  flex-direction: column;
+  transform: translateZ(18px);
+}
+
+.skill-name {
+  font-weight: 600;
+  color: #ffffff;
+}
+
+.skill-level {
+  font-size: 13px;
+  color: #aaaaaa;
+}
+
+/* ===============================
+   ANIMATIONS
+================================ */
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(28px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ===============================
+   MOBILE
+================================ */
+@media (max-width: 640px) {
+  .skills-header h2 {
+    font-size: 36px;
+  }
+
+  .skills-group h3 {
+    font-size: 22px;
+  }
+
+  .skill-card:hover,
+  .skills-grid .skill-card:nth-child(even):hover {
+    transform: translateY(-4px);
+  }
+}
