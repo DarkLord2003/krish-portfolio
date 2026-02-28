@@ -19,6 +19,23 @@ const projects = [
       "Clean and responsive UI",
     ],
     tech: ["React", "Node.js", "MongoDB", "TensorFlow.js"],
+    glanceImages: [
+      {
+        src: "/projects/auction-overview.svg",
+        label: "Auction Overview",
+        alt: "Auction platform dashboard overview",
+      },
+      {
+        src: "/projects/auction-bidding.svg",
+        label: "Live Bidding",
+        alt: "Live bidding interface preview",
+      },
+      {
+        src: "/projects/auction-pricing.svg",
+        label: "AI Price Insights",
+        alt: "AI price prediction panel preview",
+      },
+    ],
     repoUrl: "https://github.com/DarkLord2003",
     demoUrl: "",
   },
@@ -39,6 +56,23 @@ const projects = [
       "Minimal UX focused on clarity",
     ],
     tech: ["React", "Node.js", "MongoDB"],
+    glanceImages: [
+      {
+        src: "/projects/expense-dashboard.svg",
+        label: "Overview",
+        alt: "Expense tracker overview dashboard",
+      },
+      {
+        src: "/projects/expense-categories.svg",
+        label: "Categories",
+        alt: "Category spending breakdown chart",
+      },
+      {
+        src: "/projects/expense-timeline.svg",
+        label: "Timeline",
+        alt: "Expense timeline and trends chart",
+      },
+    ],
     repoUrl: "https://github.com/DarkLord2003",
     demoUrl: "",
   },
@@ -87,69 +121,66 @@ const Projects = () => {
               style={{ transitionDelay: `${i * 0.15}s` }}
               tabIndex={0}
             >
+              <div className="project-flip">
+                {/* FRONT FACE */}
+                <article className="project-face project-front">
+                  <div className="project-text">
+                    <span className="project-eyebrow">{project.category}</span>
+                    <h3>{project.title}</h3>
+                    <p>{project.subtitle}</p>
+                    <p className="project-summary">{project.description}</p>
+                  </div>
 
-              {/* BASE CARD */}
-              <div className="project-base">
-                <div className="project-text">
-                  <span className="project-eyebrow">{project.category}</span>
-                  <h3>{project.title}</h3>
-                  <p>{project.subtitle}</p>
-                </div>
+                  <ul className="project-highlights">
+                    {project.highlights.map((h, idx) => (
+                      <li key={idx}>{h}</li>
+                    ))}
+                  </ul>
 
-                <div
-                  className={`project-accent accent-${project.accent}`}
-                  aria-hidden="true"
-                />
+                  <div className="project-tech">
+                    {project.tech.map((t, idx) => (
+                      <span key={idx}>{t}</span>
+                    ))}
+                  </div>
+
+                  <div className="project-actions">
+                    {project.demoUrl ? (
+                      <a href={project.demoUrl} target="_blank" rel="noreferrer">
+                        Live Demo
+                      </a>
+                    ) : null}
+
+                    {project.repoUrl ? (
+                      <a href={project.repoUrl} target="_blank" rel="noreferrer">
+                        Source Code
+                      </a>
+                    ) : null}
+
+                    <a href={buildDiscussionLink(project.title)}>Discuss Project</a>
+                  </div>
+                </article>
+
+                {/* BACK FACE */}
+                <article className="project-face project-back">
+                  <span className="project-eyebrow">Project At A Glance</span>
+                  <h4>{project.title}</h4>
+                  <p className="project-back-copy">
+                    Hover unlocked a quick visual snapshot of key product views.
+                  </p>
+
+                  <div className="glance-grid">
+                    {project.glanceImages.map((image) => (
+                      <figure key={image.src} className="glance-tile">
+                        <img src={image.src} alt={image.alt} loading="lazy" />
+                        <figcaption>{image.label}</figcaption>
+                      </figure>
+                    ))}
+                  </div>
+                </article>
               </div>
-
-              {/* HOVER OVERLAY */}
-              <div className="project-overlay">
-                <h4>{project.title}</h4>
-                <p className="overlay-desc">{project.description}</p>
-
-                <div className="overlay-block">
-                  <strong>Problem</strong>
-                  <p>{project.problem}</p>
-                </div>
-
-                <div className="overlay-block">
-                  <strong>Solution</strong>
-                  <p>{project.solution}</p>
-                </div>
-
-                <ul className="overlay-highlights">
-                  {project.highlights.map((h, idx) => (
-                    <li key={idx}>{h}</li>
-                  ))}
-                </ul>
-
-                <div className="overlay-tech">
-                  {project.tech.map((t, idx) => (
-                    <span key={idx}>{t}</span>
-                  ))}
-                </div>
-
-                <div className="overlay-actions">
-                  {project.demoUrl ? (
-                    <a href={project.demoUrl} target="_blank" rel="noreferrer">
-                      Live Demo
-                    </a>
-                  ) : null}
-
-                  {project.repoUrl ? (
-                    <a href={project.repoUrl} target="_blank" rel="noreferrer">
-                      Source Code
-                    </a>
-                  ) : null}
-
-                  <a href={buildDiscussionLink(project.title)}>Discuss Project</a>
-                </div>
-              </div>
-
             </div>
           ))}
         </div>
-
       </div>
     </section>
   );

@@ -41,6 +41,7 @@
   align-items: center;
   gap: 10px;
   text-decoration: none;
+  width: clamp(260px, 24vw, 320px);
 }
 
 .logo-mark {
@@ -62,6 +63,7 @@
 .logo-copy {
   display: grid;
   line-height: 1.05;
+  min-width: 0;
 }
 
 .logo-copy strong {
@@ -80,6 +82,9 @@
   display: inline-flex;
   align-items: center;
   gap: 3px;
+  width: 22ch;
+  white-space: nowrap;
+  overflow: hidden;
 }
 
 .logo-typed-text {

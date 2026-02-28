@@ -42,7 +42,9 @@ const About = () => {
         <div className="about-text">
           <span className="eyebrow">About</span>
           <h2>
-            Building web experiences that feel <span>effortless</span>.
+            Building web experiences
+            <br />
+            that feel <span>effortless</span>.
           </h2>
           <p>
             I’m a frontend developer who blends design sensitivity with clean,

@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 420" role="img" aria-label="Auction overview">
+  <defs>
+    <linearGradient id="bg" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#171a24"/>
+      <stop offset="1" stop-color="#0d1017"/>
+    </linearGradient>
+    <linearGradient id="card" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#2c3142"/>
+      <stop offset="1" stop-color="#1f2331"/>
+    </linearGradient>
+  </defs>
+  <rect width="640" height="420" fill="url(#bg)"/>
+  <rect x="34" y="28" width="572" height="364" rx="16" fill="#111522" stroke="#2b3145"/>
+  <rect x="58" y="54" width="334" height="36" rx="8" fill="#20263a"/>
+  <rect x="410" y="54" width="172" height="36" rx="8" fill="#2b334d"/>
+  <rect x="58" y="114" width="524" height="118" rx="12" fill="url(#card)"/>
+  <rect x="78" y="136" width="218" height="16" rx="6" fill="#f0a360"/>
+  <rect x="78" y="164" width="310" height="12" rx="5" fill="#8aa0d1"/>
+  <rect x="78" y="188" width="270" height="12" rx="5" fill="#7083ac"/>
+  <rect x="430" y="136" width="132" height="74" rx="10" fill="#1a2031" stroke="#3a4260"/>
+  <circle cx="465" cy="172" r="18" fill="#ff9b49"/>
+  <rect x="490" y="162" width="56" height="10" rx="4" fill="#cdd8ef"/>
+  <rect x="58" y="252" width="252" height="116" rx="12" fill="#1e2435"/>
+  <rect x="328" y="252" width="254" height="116" rx="12" fill="#1e2435"/>
+  <path d="M92 330 L128 302 L165 320 L206 286 L260 310" stroke="#ff9b49" stroke-width="5" fill="none" stroke-linecap="round"/>
+  <path d="M360 318 L392 292 L428 302 L470 276 L552 296" stroke="#7aa6ff" stroke-width="5" fill="none" stroke-linecap="round"/>
+</svg>

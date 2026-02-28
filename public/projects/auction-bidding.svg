@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 420" role="img" aria-label="Live bidding panel">
+  <rect width="640" height="420" fill="#0e121a"/>
+  <rect x="34" y="30" width="572" height="360" rx="18" fill="#131a27" stroke="#2e3750"/>
+  <rect x="56" y="54" width="528" height="56" rx="10" fill="#1a2233"/>
+  <rect x="78" y="76" width="198" height="14" rx="6" fill="#e7eefc"/>
+  <rect x="438" y="70" width="126" height="24" rx="8" fill="#ff9c4a"/>
+  <rect x="56" y="130" width="336" height="238" rx="14" fill="#1a2234"/>
+  <rect x="76" y="152" width="296" height="150" rx="12" fill="#0f1422" stroke="#2f3a55"/>
+  <circle cx="138" cy="328" r="7" fill="#ff9c4a"/>
+  <rect x="154" y="321" width="128" height="12" rx="5" fill="#c9d6f0"/>
+  <circle cx="138" cy="352" r="7" fill="#7ba8ff"/>
+  <rect x="154" y="345" width="164" height="12" rx="5" fill="#c9d6f0"/>
+  <rect x="410" y="130" width="174" height="238" rx="14" fill="#1d2639"/>
+  <rect x="430" y="152" width="134" height="18" rx="6" fill="#f0a35d"/>
+  <rect x="430" y="182" width="92" height="12" rx="5" fill="#9db2dc"/>
+  <rect x="430" y="206" width="118" height="12" rx="5" fill="#9db2dc"/>
+  <rect x="430" y="240" width="134" height="44" rx="10" fill="#ff9c4a"/>
+  <rect x="430" y="298" width="134" height="44" rx="10" fill="#2d3853"/>
+  <path d="M98 274 L132 242 L171 258 L216 224 L260 244 L326 202" stroke="#ff9c4a" stroke-width="5" fill="none" stroke-linecap="round"/>
+</svg>

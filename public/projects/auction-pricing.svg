@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 420" role="img" aria-label="AI pricing insights">
+  <defs>
+    <linearGradient id="panel" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#1b2233"/>
+      <stop offset="1" stop-color="#12182a"/>
+    </linearGradient>
+  </defs>
+  <rect width="640" height="420" fill="#0c1018"/>
+  <rect x="30" y="24" width="580" height="372" rx="18" fill="#121826" stroke="#303a54"/>
+  <rect x="56" y="52" width="240" height="320" rx="14" fill="url(#panel)"/>
+  <rect x="320" y="52" width="264" height="150" rx="14" fill="url(#panel)"/>
+  <rect x="320" y="222" width="264" height="150" rx="14" fill="url(#panel)"/>
+  <rect x="78" y="76" width="196" height="16" rx="6" fill="#f0a260"/>
+  <rect x="78" y="104" width="150" height="12" rx="5" fill="#a3b6de"/>
+  <rect x="78" y="126" width="184" height="12" rx="5" fill="#8094be"/>
+  <circle cx="175" cy="240" r="86" fill="none" stroke="#2f3b57" stroke-width="20"/>
+  <circle cx="175" cy="240" r="86" fill="none" stroke="#ff9d4d" stroke-width="20" stroke-dasharray="370 200" transform="rotate(-90 175 240)"/>
+  <text x="175" y="247" font-family="Arial,sans-serif" font-size="34" fill="#f3f7ff" text-anchor="middle">87%</text>
+  <rect x="342" y="78" width="116" height="16" rx="6" fill="#e2ebfe"/>
+  <rect x="342" y="108" width="220" height="14" rx="6" fill="#8ea4d1"/>
+  <rect x="342" y="136" width="178" height="14" rx="6" fill="#7289b8"/>
+  <rect x="342" y="250" width="160" height="16" rx="6" fill="#e2ebfe"/>
+  <rect x="342" y="280" width="220" height="14" rx="6" fill="#8ea4d1"/>
+  <rect x="342" y="308" width="190" height="14" rx="6" fill="#7289b8"/>
+  <path d="M356 344 L388 318 L420 324 L462 288 L504 300 L550 270" stroke="#ff9d4d" stroke-width="5" fill="none" stroke-linecap="round"/>
+</svg>

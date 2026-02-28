@@ -1,13 +1,9 @@
-/* ===============================
-   PROJECTS SECTION
-================================ */
 .projects-section {
   padding: 120px 0;
   background: #0f0f0f;
-
   opacity: 0;
   transform: translateY(40px);
-  transition: all 0.9s ease;
+  transition: opacity 0.9s ease, transform 0.9s ease;
 }
 
 .projects-section.visible {
@@ -15,21 +11,15 @@
   transform: translateY(0);
 }
 
-/* ===============================
-   CONTAINER (FIXED SPACING)
-================================ */
 .projects-container {
-  max-width: 1400px;     /* 🔥 wider cards */
+  max-width: 1240px;
   margin: auto;
-  padding: 0 16px;       /* 🔥 minimal side gap */
+  padding: 0 24px;
 }
 
-/* ===============================
-   HEADER
-================================ */
 .projects-header {
   text-align: center;
-  margin-bottom: 80px;
+  margin-bottom: 72px;
 }
 
 .projects-header h2 {
@@ -46,42 +36,20 @@
   color: #b5b5b5;
 }
 
-/* ===============================
-   PROJECT LIST
-================================ */
 .projects-list {
-  display: flex;
-  flex-direction: column;
-  gap: 50px;
-  perspective: 1600px;
+  display: grid;
+  gap: 34px;
+  perspective: 1800px;
 }
 
-/* ===============================
-   PROJECT CARD (BASE)
-================================ */
 .project-card {
   position: relative;
-  min-height: 280px;
-  border-radius: 26px;
-  overflow: hidden;
+  min-height: 420px;
+  border-radius: 24px;
   transform-style: preserve-3d;
-
-  background: linear-gradient(
-    180deg,
-    rgba(20, 20, 20, 0.95),
-    rgba(10, 10, 10, 0.95)
-  );
-
-  border: 1px solid rgba(255, 255, 255, 0.06);
-
   opacity: 0;
   transform: translateY(24px);
-
-  transition:
-    opacity 0.7s ease,
-    transform 0.7s ease,
-    box-shadow 0.35s ease,
-    border-color 0.35s ease;
+  transition: opacity 0.7s ease, transform 0.7s ease;
 }
 
 .projects-section.visible .project-card {
@@ -89,198 +57,115 @@
   transform: translateY(0);
 }
 
-.project-card:hover {
-  transform: translateY(-12px) rotateX(6deg) rotateY(-5deg);
-  border-color: rgba(255, 140, 50, 0.55);
-  box-shadow:
-    0 30px 60px rgba(0, 0, 0, 0.75),
-    0 0 40px rgba(255, 140, 50, 0.25);
-}
-
-.project-card:nth-child(even):hover {
-  transform: translateY(-12px) rotateX(6deg) rotateY(5deg);
-}
-
 .project-card:focus-visible {
   outline: 2px solid rgba(255, 140, 50, 0.8);
   outline-offset: 4px;
 }
 
-/* ===============================
-   BASE CONTENT
-================================ */
-.project-base {
+.project-flip {
+  position: relative;
+  width: 100%;
   height: 100%;
-  padding: 42px 52px;
-
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 24px;
+  min-height: 420px;
+  transform-style: preserve-3d;
+  transition: transform 0.72s cubic-bezier(0.2, 0.68, 0.22, 1);
 }
 
-.project-text {
-  max-width: 70%;
-  transform: translateZ(20px);
+.project-card:hover .project-flip,
+.project-card:focus-within .project-flip,
+.project-card:focus-visible .project-flip {
+  transform: rotateY(180deg);
+}
+
+.project-face {
+  position: absolute;
+  inset: 0;
+  border-radius: 24px;
+  overflow: hidden;
+  backface-visibility: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: linear-gradient(
+    165deg,
+    rgba(18, 18, 18, 0.98),
+    rgba(10, 10, 10, 0.98)
+  );
+  box-shadow:
+    0 22px 48px rgba(0, 0, 0, 0.58),
+    0 0 28px rgba(255, 140, 50, 0.08);
+  padding: 30px 32px;
+  display: flex;
+  flex-direction: column;
+}
+
+.project-front {
+  justify-content: space-between;
+}
+
+.project-front::before {
+  content: "";
+  position: absolute;
+  right: -110px;
+  top: -120px;
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(255, 140, 50, 0.22),
+    rgba(255, 140, 50, 0.06) 45%,
+    transparent 70%
+  );
+  pointer-events: none;
+}
+
+.project-back {
+  transform: rotateY(180deg);
 }
 
 .project-eyebrow {
   display: inline-flex;
   text-transform: uppercase;
-  letter-spacing: 2px;
+  letter-spacing: 1.8px;
   font-size: 11px;
   font-weight: 700;
   color: #ffb47d;
   margin-bottom: 10px;
 }
 
-.project-base h3 {
+.project-text h3 {
   font-size: 30px;
-  font-weight: 700;
+  line-height: 1.1;
 }
 
-.project-base p {
+.project-text p {
   margin-top: 10px;
-  font-size: 16px;
-  color: #c0c0c0;
-}
-
-.project-accent {
-  width: 180px;
-  height: 180px;
-  border-radius: 26px;
-  background: radial-gradient(circle at top, rgba(255, 255, 255, 0.4), transparent 60%);
-  position: relative;
-  overflow: hidden;
-  box-shadow: inset 0 0 40px rgba(255, 255, 255, 0.08);
-  transform: translateZ(44px);
-}
-
-.project-accent::after {
-  content: "";
-  position: absolute;
-  inset: 16px;
-  border-radius: 20px;
-  border: 1px solid rgba(255, 255, 255, 0.18);
-}
-
-.accent-sunset {
-  background: radial-gradient(circle at 20% 20%, #ffd4a1, transparent 55%),
-    radial-gradient(circle at 80% 80%, rgba(255, 140, 50, 0.6), transparent 55%),
-    linear-gradient(140deg, rgba(255, 140, 50, 0.25), rgba(255, 255, 255, 0.05));
-}
-
-.accent-ocean {
-  background: radial-gradient(circle at 20% 20%, rgba(72, 192, 255, 0.6), transparent 55%),
-    radial-gradient(circle at 80% 80%, rgba(86, 122, 255, 0.65), transparent 55%),
-    linear-gradient(160deg, rgba(44, 92, 255, 0.35), rgba(255, 255, 255, 0.05));
-}
-
-/* ===============================
-   PROJECT PREVIEW IMAGE (OPTIONAL)
-================================ */
-.project-preview {
-  position: absolute;
-  inset: 0;
-  opacity: 0.08;
-  pointer-events: none;
-}
-
-.project-preview img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-/* ===============================
-   GLASS OVERLAY (HOVER)
-================================ */
-.project-overlay {
-  position: absolute;
-  inset: 0;
-
-  padding: 38px 48px;
-
-  background: rgba(18, 18, 18, 0.55);
-  backdrop-filter: blur(18px);
-  -webkit-backdrop-filter: blur(18px);
-
-  opacity: 0;
-  transform: scale(0.97) translateZ(68px);
-  pointer-events: none;
-
-  transition:
-    opacity 0.35s ease,
-    transform 0.35s ease;
-}
-
-.project-card:hover .project-overlay {
-  opacity: 1;
-  transform: scale(1);
-  pointer-events: auto;
-}
-
-.project-card:focus-within .project-overlay,
-.project-card:focus-visible .project-overlay {
-  opacity: 1;
-  transform: scale(1);
-  pointer-events: auto;
-}
-
-/* ===============================
-   OVERLAY CONTENT
-================================ */
-.project-overlay h4 {
-  font-size: 26px;
-  font-weight: 700;
-}
-
-.overlay-desc {
-  margin: 10px 0 14px;
-  color: #e0e0e0;
-  font-size: 15px;
+  color: #c5c5c5;
   line-height: 1.6;
 }
 
-.overlay-block {
-  margin-bottom: 10px;
+.project-summary {
+  max-width: 760px;
 }
 
-.overlay-block strong {
-  color: var(--orange);
-  font-size: 13px;
-}
-
-.overlay-block p {
-  font-size: 14px;
-  color: #d0d0d0;
-  margin-top: 3px;
-}
-
-/* ===============================
-   HIGHLIGHTS
-================================ */
-.overlay-highlights {
-  margin: 10px 0;
+.project-highlights {
+  margin-top: 14px;
   padding-left: 18px;
+  color: #dfdfdf;
+  line-height: 1.75;
 }
 
-.overlay-highlights li {
-  font-size: 14px;
-  margin-bottom: 6px;
+.project-highlights li {
+  margin-bottom: 4px;
 }
 
-/* ===============================
-   TECH TAGS
-================================ */
-.overlay-tech {
+.project-tech {
+  margin-top: 14px;
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
-  margin-top: 10px;
 }
 
-.overlay-tech span {
+.project-tech span {
   font-size: 12px;
   padding: 5px 10px;
   border-radius: 999px;
@@ -288,14 +173,14 @@
   color: #ffb47d;
 }
 
-.overlay-actions {
+.project-actions {
   margin-top: 16px;
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
 }
 
-.overlay-actions a {
+.project-actions a {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -304,57 +189,97 @@
   text-decoration: none;
   font-size: 12px;
   font-weight: 700;
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.22);
   color: #f2f2f2;
   transition: border-color 0.2s ease, transform 0.2s ease;
 }
 
-.overlay-actions a:hover {
+.project-actions a:hover {
   transform: translateY(-2px);
-  border-color: rgba(255, 140, 50, 0.5);
+  border-color: rgba(255, 140, 50, 0.55);
 }
 
-/* ===============================
-   MOBILE (NO HOVER)
-================================ */
+.project-back h4 {
+  font-size: 28px;
+  line-height: 1.1;
+}
+
+.project-back-copy {
+  margin-top: 10px;
+  color: #d6d6d6;
+  line-height: 1.6;
+}
+
+.glance-grid {
+  margin-top: 20px;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+  height: 100%;
+  align-content: start;
+}
+
+.glance-tile {
+  margin: 0;
+  border-radius: 14px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.glance-tile img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+}
+
+.glance-tile figcaption {
+  padding: 8px 9px 10px;
+  font-size: 11px;
+  letter-spacing: 0.5px;
+  color: #e8e8e8;
+}
+
+@media (max-width: 900px) {
+  .project-card,
+  .project-flip {
+    min-height: 440px;
+  }
+
+  .project-text h3 {
+    font-size: 26px;
+  }
+}
+
 @media (max-width: 768px) {
-  .project-card {
-    height: auto;
+  .projects-header h2 {
+    font-size: 38px;
   }
 
-  .project-base {
-    align-items: flex-start;
-    flex-direction: column;
+  .project-card,
+  .project-flip {
+    min-height: unset;
   }
 
-  .project-text {
-    max-width: 100%;
-  }
-
-  .project-accent {
-    width: 100%;
-    height: 160px;
-  }
-
-  .project-overlay {
-    position: static;
-    opacity: 1;
+  .project-face {
+    position: relative;
+    inset: auto;
     transform: none;
-    pointer-events: auto;
-
-    backdrop-filter: none;
-    background: rgba(20, 20, 20, 0.9);
-    margin-top: 18px;
-    border-radius: 18px;
+    backface-visibility: visible;
   }
 
-  .project-preview {
-    display: none;
+  .project-back {
+    margin-top: 16px;
   }
 
-  .project-card:hover,
-  .project-card:nth-child(even):hover {
+  .project-card:hover .project-flip,
+  .project-card:focus-within .project-flip,
+  .project-card:focus-visible .project-flip {
     transform: none;
+  }
+
+  .glance-grid {
+    grid-template-columns: 1fr;
   }
 }
-

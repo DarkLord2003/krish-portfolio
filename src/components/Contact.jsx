@@ -1,11 +1,14 @@
 import { useEffect, useRef, useState } from "react";
 import "./Contact.css";
 
+const CONTACT_EMAIL = "krishp744@gmail.com";
+const DEFAULT_FORM_ENDPOINT = `https://formsubmit.co/ajax/${CONTACT_EMAIL}`;
+
 const contactLinks = [
   {
     label: "Email",
-    value: "krishp744@gmail.com",
-    href: "mailto:krishp744@gmail.com",
+    value: CONTACT_EMAIL,
+    href: `mailto:${CONTACT_EMAIL}`,
   },
   {
     label: "LinkedIn",
@@ -26,6 +29,18 @@ const initialFormState = {
 };
 
 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const buildMailtoHref = (formData = initialFormState) => {
+  const subject = encodeURIComponent(
+    formData.name
+      ? `Portfolio inquiry from ${formData.name}`
+      : "Portfolio inquiry"
+  );
+  const body = encodeURIComponent(
+    `Name: ${formData.name || ""}\nEmail: ${formData.email || ""}\n\nMessage:\n${formData.message || ""}`
+  );
+
+  return `mailto:${CONTACT_EMAIL}?subject=${subject}&body=${body}`;
+};
 
 const Contact = () => {
   const sectionRef = useRef(null);
@@ -33,6 +48,13 @@ const Contact = () => {
   const [formErrors, setFormErrors] = useState({});
   const [formStatus, setFormStatus] = useState("idle");
   const [statusMessage, setStatusMessage] = useState("");
+  const configuredEndpoint = (
+    import.meta.env.VITE_FORMSPREE_ENDPOINT ||
+    import.meta.env.VITE_CONTACT_ENDPOINT ||
+    ""
+  ).trim();
+  const submitEndpoint = configuredEndpoint || DEFAULT_FORM_ENDPOINT;
+  const usingDefaultEndpoint = !configuredEndpoint;
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -75,6 +97,10 @@ const Contact = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
+    // Basic honeypot: bots filling this hidden field are ignored.
+    const botField = event.currentTarget.elements.company?.value;
+    if (botField) return;
+
     const validationErrors = validateForm();
     if (Object.keys(validationErrors).length > 0) {
       setFormErrors(validationErrors);
@@ -86,45 +112,50 @@ const Contact = () => {
     setFormStatus("submitting");
     setStatusMessage("");
 
-    const endpoint = import.meta.env.VITE_CONTACT_ENDPOINT;
-
     try {
-      if (endpoint) {
-        const response = await fetch(endpoint, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Accept: "application/json",
-          },
-          body: JSON.stringify(formData),
-        });
+      const response = await fetch(submitEndpoint, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({
+          ...formData,
+          source: "krish-portfolio-site",
+          submittedAt: new Date().toISOString(),
+          _replyto: formData.email,
+          _subject: `Portfolio inquiry from ${formData.name}`,
+          ...(usingDefaultEndpoint
+            ? {
+                _captcha: "false",
+                _template: "table",
+              }
+            : {}),
+        }),
+      });
 
-        if (!response.ok) {
-          throw new Error("Request failed");
-        }
-
-        setFormStatus("success");
-        setStatusMessage("Message sent successfully.");
-      } else {
-        const subject = encodeURIComponent(
-          `Portfolio inquiry from ${formData.name}`
-        );
-        const body = encodeURIComponent(
-          `Name: ${formData.name}\nEmail: ${formData.email}\n\nMessage:\n${formData.message}`
-        );
-
-        window.location.href = `mailto:krishp744@gmail.com?subject=${subject}&body=${body}`;
-        setFormStatus("success");
-        setStatusMessage(
-          "Mail client opened. If it did not open, email me directly at krishp744@gmail.com."
-        );
+      if (!response.ok) {
+        throw new Error("Request failed");
       }
 
+      setFormStatus("success");
+      setStatusMessage(
+        "Message sent successfully. I will get back to you shortly."
+      );
       setFormData(initialFormState);
     } catch {
       setFormStatus("error");
-      setStatusMessage("Unable to send right now. Please try again later.");
+      setStatusMessage(
+        "Submission failed. Use the Email Instead button below."
+      );
     }
+  };
+
+  const resetFormState = () => {
+    setFormStatus("idle");
+    setStatusMessage("");
+    setFormErrors({});
+    setFormData(initialFormState);
   };
 
   return (
@@ -153,60 +184,98 @@ const Contact = () => {
         <div className="contact-card">
           <h3>Contact Form</h3>
           <p className="contact-card-subtext">
-            Fill this form and submit. If no endpoint is configured, your email
-            app will open with a pre-filled draft.
+            Direct form delivery is active. If it fails, use the email fallback.
           </p>
 
-          <form id="contact-form" className="contact-form" onSubmit={handleSubmit} noValidate>
-            <label className="field">
-              Name
+          {formStatus === "success" || formStatus === "fallback" ? (
+            <div className="contact-success" role="status" aria-live="polite">
+              <h4>Message Ready</h4>
+              <p>{statusMessage}</p>
+              <div className="contact-success-actions">
+                <button
+                  type="button"
+                  className="contact-reset-btn"
+                  onClick={resetFormState}
+                >
+                  Send Another Message
+                </button>
+                <a href={`mailto:${CONTACT_EMAIL}`}>Email Directly</a>
+              </div>
+            </div>
+          ) : (
+            <form
+              id="contact-form"
+              className="contact-form"
+              onSubmit={handleSubmit}
+              noValidate
+            >
               <input
                 type="text"
-                name="name"
-                value={formData.name}
-                onChange={handleInputChange}
-                autoComplete="name"
-                placeholder="Your full name"
-                aria-invalid={Boolean(formErrors.name)}
+                name="company"
+                tabIndex="-1"
+                autoComplete="off"
+                className="field-honeypot"
+                aria-hidden="true"
               />
-              {formErrors.name ? <small>{formErrors.name}</small> : null}
-            </label>
 
-            <label className="field">
-              Email
-              <input
-                type="email"
-                name="email"
-                value={formData.email}
-                onChange={handleInputChange}
-                autoComplete="email"
-                placeholder="you@example.com"
-                aria-invalid={Boolean(formErrors.email)}
-              />
-              {formErrors.email ? <small>{formErrors.email}</small> : null}
-            </label>
+              <label className="field">
+                Name
+                <input
+                  type="text"
+                  name="name"
+                  value={formData.name}
+                  onChange={handleInputChange}
+                  autoComplete="name"
+                  placeholder="Your full name"
+                  aria-invalid={Boolean(formErrors.name)}
+                />
+                {formErrors.name ? <small>{formErrors.name}</small> : null}
+              </label>
 
-            <label className="field">
-              Message
-              <textarea
-                name="message"
-                rows="5"
-                value={formData.message}
-                onChange={handleInputChange}
-                placeholder="Tell me about your project, role, or collaboration idea."
-                aria-invalid={Boolean(formErrors.message)}
-              />
-              {formErrors.message ? <small>{formErrors.message}</small> : null}
-            </label>
+              <label className="field">
+                Email
+                <input
+                  type="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleInputChange}
+                  autoComplete="email"
+                  placeholder="you@example.com"
+                  aria-invalid={Boolean(formErrors.email)}
+                />
+                {formErrors.email ? <small>{formErrors.email}</small> : null}
+              </label>
 
-            <button type="submit" disabled={formStatus === "submitting"}>
-              {formStatus === "submitting" ? "Sending..." : "Submit Message"}
-            </button>
+              <label className="field">
+                Message
+                <textarea
+                  name="message"
+                  rows="5"
+                  value={formData.message}
+                  onChange={handleInputChange}
+                  placeholder="Tell me about your project, role, or collaboration idea."
+                  aria-invalid={Boolean(formErrors.message)}
+                />
+                {formErrors.message ? <small>{formErrors.message}</small> : null}
+              </label>
 
-            {statusMessage ? (
-              <p className={`form-status ${formStatus}`}>{statusMessage}</p>
-            ) : null}
-          </form>
+              <div className="contact-form-actions">
+                <button type="submit" disabled={formStatus === "submitting"}>
+                  {formStatus === "submitting" ? "Sending..." : "Submit Message"}
+                </button>
+                <a
+                  className="contact-email-fallback"
+                  href={buildMailtoHref(formData)}
+                >
+                  Email Instead
+                </a>
+              </div>
+
+              {statusMessage ? (
+                <p className={`form-status ${formStatus}`}>{statusMessage}</p>
+              ) : null}
+            </form>
+          )}
 
           <div className="contact-links">
             {contactLinks.map((item) => (

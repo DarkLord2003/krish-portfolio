@@ -15,6 +15,25 @@ npm install
 npm run dev
 ```
 
+## Contact Form Setup
+
+Direct form submissions are enabled by default using FormSubmit:
+
+- `https://formsubmit.co/ajax/krishp744@gmail.com`
+
+You can override the provider by configuring one of:
+
+- `VITE_FORMSPREE_ENDPOINT`
+- `VITE_CONTACT_ENDPOINT`
+
+Example `.env`:
+
+```bash
+VITE_FORMSPREE_ENDPOINT=https://formspree.io/f/your_form_id
+```
+
+If submission fails, the UI provides a `mailto:` email fallback.
+
 ## Scripts
 
 - `npm run dev` starts the local dev server.
@@ -33,4 +52,3 @@ npm run dev
 
 - Add your final domain to canonical/OG metadata in `index.html`.
 - Keep media optimized before deployment (profile image is the largest asset).
-
